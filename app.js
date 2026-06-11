@@ -121,9 +121,18 @@ function findBest(){
 
    let percent = data.default;
 
-if(data.categories[category]){
-  percent =
-    data.categories[category].percent;
+for(
+  const [cat,info]
+  of Object.entries(data.categories)
+){
+
+  if(
+    cat.toLowerCase() ===
+    category.toLowerCase()
+  ){
+    percent = info.percent;
+    break;
+  }
 }
 
     let cashback =
