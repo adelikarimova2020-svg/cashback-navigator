@@ -342,3 +342,30 @@ function saveBase(card){
 
   saveCards();
 }
+function saveCategory(
+  card,
+  category
+){
+
+  let percent =
+    Number(
+      document.getElementById(
+        `percent-${card}-${category}`
+      ).value
+    );
+
+  let limit =
+    Number(
+      document.getElementById(
+        `limit-${card}-${category}`
+      ).value
+    );
+
+  cards[card]
+    .categories[category] = {
+      percent,
+      limit
+    };
+
+  saveCards();
+}
