@@ -227,7 +227,7 @@ function saveCards(){
   );
 }
 renderHistory();
-function showCards(){
+function renderCardsPanel(){
 
   cardsVisible = !cardsVisible;
 
