@@ -177,7 +177,20 @@ for(
   results.sort((a,b)=>b.percent-a.percent);
 
   let html = `
-    <div class="card best">
+
+  <div class="card">
+
+    🔎 Запрос:
+    ${rawQuery}
+
+    <br><br>
+
+    📂 Категория:
+    ${category}
+
+  </div>
+
+  <div class="card best">
       🥇 ${results[0].card}<br>
       ${results[0].percent}%<br>
       ${results[0].cashback.toFixed(2)} ₽
