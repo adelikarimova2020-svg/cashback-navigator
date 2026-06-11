@@ -384,3 +384,34 @@ function deleteCategory(card, category){
   saveCards();
   showCards();
 }
+function editCategory(card, category){
+
+  let current =
+    cards[card]
+      .categories[category];
+
+  let percent =
+    Number(
+      prompt(
+        "Новый процент",
+        current.percent
+      )
+    );
+
+  let limit =
+    Number(
+      prompt(
+        "Новый лимит",
+        current.limit
+      )
+    );
+
+  cards[card]
+    .categories[category] = {
+      percent,
+      limit
+    };
+
+  saveCards();
+  showCards();
+}
