@@ -173,3 +173,121 @@ function saveCards(){
   );
 }
 renderHistory();
+function showCards(){
+
+  let html = "";
+
+  for(const [name,data] of Object.entries(cards)){
+
+    html += `
+      <div class="card">
+
+        <h3>${name}</h3>
+
+        Базовый:
+        ${data.default}%<br><br>
+    `;
+
+    for(const [cat,info]
+      of Object.entries(data.categories)){
+
+      html += `
+        ${cat}
+        —
+        ${info.percent}%
+        (лимит ${info.limit} ₽)
+        <br>
+      `;
+    }
+
+    html += `
+      <br>
+
+      <button
+      onclick="addCategory('${name}')">
+      ➕ Категория
+      </button>
+
+      <button
+      onclick="deleteCard('${name}')">
+      🗑 Удалить карту
+      </button>
+
+      </div>
+    `;
+  }
+
+  html += `
+    <button onclick="addCard()">
+    ➕ Новая карта
+    </button>
+  `;
+
+  document
+    .getElementById("cardsPanel")
+    .innerHTML = html;
+}
+
+function addCard(){
+
+  const name =
+    prompt("Название карты");
+
+  if(!name) return;
+
+  const base =
+    Number(
+      prompt("Базовый кэшбэк")
+    );
+
+  cards[name] = {
+    default:base,
+    categories:{}
+  };
+
+  saveCards();
+  showCards();
+}
+
+function deleteCard(name){
+
+  if(
+    !confirm(
+      "Удалить карту?"
+    )
+  ) return;
+
+  delete cards[name];
+
+  saveCards();
+  showCards();
+}
+
+function addCategory(card){
+
+  const category =
+    prompt("Категория");
+
+  if(!category) return;
+
+  const percent =
+    Number(
+      prompt("Процент")
+    );
+
+  const limit =
+    Number(
+      prompt(
+        "Лимит кэшбэка ₽"
+      )
+    );
+
+  cards[card]
+    .categories[category] = {
+      percent,
+      limit
+    };
+
+  saveCards();
+  showCards();
+}
