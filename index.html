@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="manifest.json">
+<title>Cashback Navigator V7</title>
+<style>
+body{font-family:-apple-system,sans-serif;max-width:900px;margin:auto;padding:16px}
+input,button{width:100%;padding:12px;margin:6px 0}
+.card{border:1px solid #ddd;border-radius:12px;padding:10px;margin:8px 0}
+.best{border:2px solid #000}
+</style></head><body>
+<h2>💳 Cashback Navigator V7</h2>
+<input id="q" placeholder="Магазин или категория">
+<input id="sum" type="number" placeholder="Сумма покупки">
+<button onclick="run()">Подобрать карту</button>
+<div id="out"></div>
+<script>
+const cards={
+"ОТП":{"АЗС":5,"Супермаркеты":2,"Рестораны":5,"ЖКХ":3,"default":0},
+"Т-Банк":{"Топливо":6,"Автоуслуги":5,"Животные":5,"default":1},
+"ПСБ":{"Салоны красоты":5,"Детские товары":5,"Подарки":5,"default":1},
+"Яндекс":{"Супермаркеты":3,"Одежда и обувь":5,"default":2},
+"Озон":{"Дом и ремонт":5,"Рестораны":5,"Фастфуд":5,"Электроника":5,"default":1}
+};
+const stores={"пятёрочка":"Супермаркеты","магнит":"Супермаркеты","dns":"Электроника","лукойл":"Топливо","додо":"Рестораны"};
+function run(){
+let q=document.getElementById('q').value.trim();
+let cat=stores[q.toLowerCase()]||q;
+let sum=Number(document.getElementById('sum').value||0);
+let arr=[];
+for (const [c,v] of Object.entries(cards)){
+ let p=v[cat]??v.default;
+ arr.push([c,p,sum*p/100]);
+}
+arr.sort((a,b)=>b[1]-a[1]);
+document.getElementById('out').innerHTML=arr.map((x,i)=>`<div class="card ${i==0?'best':''}">${i==0?'🥇 ':''}${x[0]} — ${x[1]}% ${sum?('('+x[2].toFixed(2)+' ₽)'):''}</div>`).join('');
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+</script></body></html>
