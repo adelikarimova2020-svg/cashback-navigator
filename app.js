@@ -1,6 +1,9 @@
 let stores = {};
 let mcc = {};
 
+let cardsVisible = false;
+let historyVisible = false;
+
 let cards = JSON.parse(
   localStorage.getItem("cards")
 );
