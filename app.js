@@ -535,7 +535,7 @@ function toggleHistory(){
 
 window.toggleHistory =
   toggleHistory;
-function normalize(text){
+
 
   return text
     .toLowerCase()
