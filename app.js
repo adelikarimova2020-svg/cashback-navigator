@@ -175,8 +175,6 @@ function saveCards(){
 renderHistory();
 function showCards(){
 
-  alert("showCards запустилась");
-  
   let html = "";
 
   for(const [name,data] of Object.entries(cards)){
@@ -184,35 +182,75 @@ function showCards(){
     html += `
       <div class="card">
 
-        <h3>${name}</h3>
+      <h3>${name}</h3>
 
-        Базовый:
-        ${data.default}%<br><br>
+      Базовый кэшбэк
+
+      <input
+        type="number"
+        id="base-${name}"
+        value="${data.default}"
+      >
+
+      <button
+        onclick="saveBase('${name}')">
+        💾
+      </button>
+
+      <button
+        onclick="deleteCard('${name}')">
+        🗑 Карта
+      </button>
+
+      <hr>
     `;
 
     for(const [cat,info]
       of Object.entries(data.categories)){
 
       html += `
-        ${cat}
-        —
-        ${info.percent}%
-        (лимит ${info.limit} ₽)
-        <br>
+
+      <div class="categoryRow">
+
+        <b>${cat}</b><br>
+
+        %
+
+        <input
+          type="number"
+          id="percent-${name}-${cat}"
+          value="${info.percent}"
+        >
+
+        Лимит
+
+        <input
+          type="number"
+          id="limit-${name}-${cat}"
+          value="${info.limit}"
+        >
+
+        <button
+          onclick="saveCategory('${name}','${cat}')">
+          💾
+        </button>
+
+        <button
+          onclick="deleteCategory('${name}','${cat}')">
+          🗑
+        </button>
+
+      </div>
       `;
     }
 
     html += `
-      <br>
+
+      <hr>
 
       <button
       onclick="addCategory('${name}')">
       ➕ Категория
-      </button>
-
-      <button
-      onclick="deleteCard('${name}')">
-      🗑 Удалить карту
       </button>
 
       </div>
@@ -221,13 +259,13 @@ function showCards(){
 
   html += `
     <button onclick="addCard()">
-    ➕ Новая карта
+      ➕ Новая карта
     </button>
   `;
 
-  document
-    .getElementById("cardsPanel")
-    .innerHTML = html;
+  document.getElementById(
+    "cardsPanel"
+  ).innerHTML = html;
 }
 
 function addCard(){
