@@ -175,6 +175,8 @@ function saveCards(){
 renderHistory();
 function showCards(){
 
+  alert("showCards запустилась");
+  
   let html = "";
 
   for(const [name,data] of Object.entries(cards)){
