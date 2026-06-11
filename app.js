@@ -369,3 +369,18 @@ function saveCategory(
 
   saveCards();
 }
+function deleteCategory(card, category){
+
+  if(
+    !confirm(
+      `Удалить категорию "${category}"?`
+    )
+  ){
+    return;
+  }
+
+  delete cards[card].categories[category];
+
+  saveCards();
+  showCards();
+}
