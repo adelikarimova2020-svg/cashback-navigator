@@ -452,3 +452,35 @@ window.editCategory = editCategory;
 
 window.saveBase = saveBase;
 window.saveCategory = saveCategory;
+
+function toggleHistory(){
+
+  historyVisible = !historyVisible;
+
+  const wrapper =
+    document.getElementById(
+      "historyWrapper"
+    );
+
+  const btn =
+    document.getElementById(
+      "historyBtn"
+    );
+
+  if(wrapper){
+    wrapper.style.display =
+      historyVisible
+        ? "block"
+        : "none";
+  }
+
+  if(btn){
+    btn.textContent =
+      historyVisible
+        ? "❌ Скрыть историю"
+        : "🕒 Показать историю";
+  }
+}
+
+window.toggleHistory =
+  toggleHistory;
