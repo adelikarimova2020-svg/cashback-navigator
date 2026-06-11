@@ -111,9 +111,12 @@ function findBest(){
     );
 
   let category =
-    stores[query] ||
-    mcc[query] ||
-    query;
+  stores[query] ||
+  mcc[query] ||
+  query;
+
+category =
+  String(category).trim();
 
   let results = [];
 
