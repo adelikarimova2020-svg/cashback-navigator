@@ -178,6 +178,29 @@ function saveCards(){
 renderHistory();
 function showCards(){
 
+  cardsVisible = !cardsVisible;
+
+  const btn =
+    document.getElementById(
+      "cardsBtn"
+    );
+
+  if(btn){
+    btn.textContent =
+      cardsVisible
+        ? "❌ Скрыть карты"
+        : "⚙️ Управление картами";
+  }
+
+  if(!cardsVisible){
+
+    document.getElementById(
+      "cardsPanel"
+    ).innerHTML = "";
+
+    return;
+  }
+
   let html = "";
 
   for(const [name,data] of Object.entries(cards)){
