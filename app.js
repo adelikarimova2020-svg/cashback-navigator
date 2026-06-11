@@ -1,53 +1,62 @@
 let stores = {};
 let mcc = {};
 
-const cards = {
-  "ОТП":{
-    default:0,
-    categories:{
-      "АЗС":5,
-      "Супермаркеты":2,
-      "Рестораны":5,
-      "ЖКХ":3
-    }
-  },
+let cards = JSON.parse(
+  localStorage.getItem("cards")
+);
 
-  "Т-Банк":{
-    default:1,
-    categories:{
-      "Топливо":6,
-      "Автоуслуги":5,
-      "Животные":5
-    }
-  },
+if(!cards){
 
-  "ПСБ":{
-    default:1,
-    categories:{
-      "Салоны красоты":5,
-      "Детские товары":5,
-      "Подарки":5
-    }
-  },
+  cards = {
+    "ОТП":{
+      default:0,
+      categories:{
+        "АЗС":{percent:5,limit:1000},
+        "Супермаркеты":{percent:2,limit:1000},
+        "Рестораны":{percent:5,limit:1000},
+        "ЖКХ":{percent:3,limit:500}
+      }
+    },
 
-  "Яндекс":{
-    default:2,
-    categories:{
-      "Супермаркеты":3,
-      "Одежда и обувь":5
-    }
-  },
+    "Т-Банк":{
+      default:1,
+      categories:{
+        "Топливо":{percent:6,limit:1000},
+        "Автоуслуги":{percent:5,limit:1000},
+        "Животные":{percent:5,limit:1000}
+      }
+    },
 
-  "Озон":{
-    default:1,
-    categories:{
-      "Дом и ремонт":5,
-      "Рестораны":5,
-      "Фастфуд":5,
-      "Электроника":5
+    "ПСБ":{
+      default:1,
+      categories:{
+        "Салоны красоты":{percent:5,limit:1000},
+        "Детские товары":{percent:5,limit:1000},
+        "Подарки":{percent:5,limit:1000}
+      }
+    },
+
+    "Яндекс":{
+      default:2,
+      categories:{
+        "Супермаркеты":{percent:3,limit:1000},
+        "Одежда и обувь":{percent:5,limit:1000}
+      }
+    },
+
+    "Озон":{
+      default:1,
+      categories:{
+        "Дом и ремонт":{percent:5,limit:1000},
+        "Рестораны":{percent:5,limit:1000},
+        "Фастфуд":{percent:5,limit:1000},
+        "Электроника":{percent:5,limit:1000}
+      }
     }
-  }
-};
+  };
+
+  saveCards();
+}
 
 async function loadData(){
   stores = await fetch("data/stores.json").then(r=>r.json());
@@ -107,9 +116,12 @@ function findBest(){
 
   for(const [card,data] of Object.entries(cards)){
 
-    let percent =
-      data.categories[category] ??
-      data.default;
+   let percent = data.default;
+
+if(data.categories[category]){
+  percent =
+    data.categories[category].percent;
+}
 
     let cashback =
       amount * percent / 100;
@@ -154,4 +166,10 @@ function findBest(){
 }
 
 loadData();
+function saveCards(){
+  localStorage.setItem(
+    "cards",
+    JSON.stringify(cards)
+  );
+}
 renderHistory();
