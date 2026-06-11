@@ -415,3 +415,14 @@ function editCategory(card, category){
   saveCards();
   showCards();
 }
+window.showCards = showCards;
+
+window.addCard = addCard;
+window.deleteCard = deleteCard;
+window.addCategory = addCategory;
+
+window.deleteCategory = deleteCategory;
+window.editCategory = editCategory;
+
+window.saveBase = saveBase;
+window.saveCategory = saveCategory;
