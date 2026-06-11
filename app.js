@@ -545,7 +545,7 @@ window.toggleHistory =
     .replace(/\s+/g," ")
     .trim();
 }
-let cardsVisible = false;
+
 
 function showCards(){
 
