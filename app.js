@@ -97,7 +97,33 @@ function renderHistory(){
   document.getElementById("history").innerHTML = html;
 }
 
+function normalize(text){
+
+  return text
+    .toLowerCase()
+    .replaceAll("ё","е")
+    .replaceAll("-"," ")
+    .replaceAll("."," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
 function findBest(){
+
+  let rawQuery =
+    document.getElementById("query").value;
+
+  let query = normalize(rawQuery);
+
+  let amount =
+    Number(
+      document.getElementById("amount").value || 0
+    );
+
+  let category =
+    stores[query] ||
+    mcc[query] ||
+    query;
 
   let query =
     document.getElementById("query")
