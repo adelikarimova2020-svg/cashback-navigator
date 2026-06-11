@@ -545,3 +545,36 @@ function normalize(text){
     .replace(/\s+/g," ")
     .trim();
 }
+let cardsVisible = false;
+
+function showCards(){
+
+  const panel =
+    document.getElementById(
+      "cardsPanel"
+    );
+
+  const btn =
+    document.getElementById(
+      "cardsBtn"
+    );
+
+  if(cardsVisible){
+
+    panel.innerHTML = "";
+
+    btn.innerText =
+      "⚙️ Управление картами";
+
+    cardsVisible = false;
+
+    return;
+  }
+
+  cardsVisible = true;
+
+  btn.innerText =
+    "❌ Скрыть карты";
+
+  renderCardsPanel();
+}
