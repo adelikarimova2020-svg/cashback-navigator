@@ -331,3 +331,14 @@ function addCategory(card){
   saveCards();
   showCards();
 }
+function saveBase(card){
+
+  cards[card].default =
+    Number(
+      document.getElementById(
+        `base-${card}`
+      ).value
+    );
+
+  saveCards();
+}
